@@ -23,13 +23,15 @@ void main() {
     const tPokemon = Pokemon(
       id: 1,
       name: 'bulbasaur',
-      imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+      imageUrl:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
       types: ['grass', 'poison'],
       height: 7,
       weight: 69,
     );
 
-    test('should return Pokemon when call to repository is successful', () async {
+    test('should return Pokemon when call to repository is successful',
+        () async {
       // arrange
       when(mockPokemonRepository.getPokemon(any))
           .thenAnswer((_) async => Right(tPokemon));
@@ -58,10 +60,13 @@ void main() {
       verifyNoMoreInteractions(mockPokemonRepository);
     });
 
-    test('should return List<Pokemon> when call to getPokemonList is successful', () async {
+    test(
+        'should return List<Pokemon> when call to getPokemonList is successful',
+        () async {
       // arrange
       final tPokemonList = [tPokemon];
-      when(mockPokemonRepository.getPokemonList(limit: anyNamed('limit'), offset: anyNamed('offset')))
+      when(mockPokemonRepository.getPokemonList(
+              limit: anyNamed('limit'), offset: anyNamed('offset')))
           .thenAnswer((_) async => Right(tPokemonList));
 
       // act
@@ -73,7 +78,8 @@ void main() {
       verifyNoMoreInteractions(mockPokemonRepository);
     });
 
-    test('should return Pokemon when call to getPokemonByName is successful', () async {
+    test('should return Pokemon when call to getPokemonByName is successful',
+        () async {
       // arrange
       when(mockPokemonRepository.getPokemonByName(any))
           .thenAnswer((_) async => Right(tPokemon));

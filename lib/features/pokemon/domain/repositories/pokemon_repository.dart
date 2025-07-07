@@ -3,7 +3,7 @@ import '../../../../core/error/failures.dart';
 import '../entities/pokemon.dart';
 
 /// Abstract repository interface for Pokemon data operations.
-/// 
+///
 /// This interface defines the contract for accessing Pokemon data,
 /// following the Repository pattern in Clean Architecture.
 /// All implementations must return Either<Failure, T> for error handling.

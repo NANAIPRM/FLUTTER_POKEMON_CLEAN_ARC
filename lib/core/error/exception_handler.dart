@@ -18,7 +18,7 @@ class ExceptionHandler {
         return ConnectionFailure('Request was cancelled');
 
       case DioExceptionType.connectionError:
-        return NetworkFailure('Connection error: ${error.message}');
+        return ConnectionFailure('Connection error: ${error.message}');
 
       case DioExceptionType.badCertificate:
         return ConnectionFailure('Certificate error: ${error.message}');

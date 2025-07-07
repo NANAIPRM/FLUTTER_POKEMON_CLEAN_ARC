@@ -4,7 +4,7 @@ import '../entities/pokemon.dart';
 import '../repositories/pokemon_repository.dart';
 
 /// Parameters for the GetPokemonList use case.
-/// 
+///
 /// This class encapsulates the input parameters for pagination
 /// and provides validation logic.
 class GetPokemonListParams {
@@ -23,7 +23,7 @@ class GetPokemonListParams {
 }
 
 /// Use case for retrieving a list of Pokemon with pagination.
-/// 
+///
 /// This use case handles the business logic for fetching multiple Pokemon
 /// and includes validation for pagination parameters.
 class GetPokemonList {
@@ -37,7 +37,8 @@ class GetPokemonList {
   /// The [params] contain the limit and offset for pagination.
   ///
   /// Returns [Right(List<Pokemon>)] on success or [Left(Failure)] on error.
-  Future<Either<Failure, List<Pokemon>>> call(GetPokemonListParams params) async {
+  Future<Either<Failure, List<Pokemon>>> call(
+      GetPokemonListParams params) async {
     // Validate pagination parameters
     if (!params.isValid) {
       return Left(ValidationFailure(

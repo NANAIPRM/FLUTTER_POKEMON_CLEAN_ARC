@@ -24,14 +24,16 @@ void main() {
   const tPokemon = Pokemon(
     id: 1,
     name: 'bulbasaur',
-    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+    imageUrl:
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
     types: ['grass', 'poison'],
     height: 7,
     weight: 69,
   );
 
   group('GetPokemon Use Case', () {
-    test('should return Pokemon when the repository call is successful', () async {
+    test('should return Pokemon when the repository call is successful',
+        () async {
       // arrange
       when(mockPokemonRepository.getPokemon(any))
           .thenAnswer((_) async => Right(tPokemon));
@@ -60,7 +62,8 @@ void main() {
       verifyNoMoreInteractions(mockPokemonRepository);
     });
 
-    test('should return ValidationFailure when Pokemon ID is less than 1', () async {
+    test('should return ValidationFailure when Pokemon ID is less than 1',
+        () async {
       // arrange
       const tInvalidId = 0;
 
@@ -77,7 +80,8 @@ void main() {
       verifyNever(mockPokemonRepository.getPokemon(any));
     });
 
-    test('should return ValidationFailure when Pokemon ID is greater than 1010', () async {
+    test('should return ValidationFailure when Pokemon ID is greater than 1010',
+        () async {
       // arrange
       const tInvalidId = 1011;
 

@@ -6,6 +6,7 @@ class ApiConstants {
 
   // Endpoints
   static const String pokemon = 'pokemon';
+  static const String pokemonEndpoint = 'pokemon';
 
   // Timeout configurations
   static const Duration connectTimeout = Duration(seconds: 10);

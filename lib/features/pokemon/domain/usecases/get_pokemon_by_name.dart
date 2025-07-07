@@ -4,7 +4,7 @@ import '../entities/pokemon.dart';
 import '../repositories/pokemon_repository.dart';
 
 /// Use case for retrieving a Pokemon by its name.
-/// 
+///
 /// This use case encapsulates the business logic for searching Pokemon
 /// by name and handles validation of the input parameters.
 class GetPokemonByName {
@@ -21,7 +21,7 @@ class GetPokemonByName {
   Future<Either<Failure, Pokemon>> call(String name) async {
     // Validate Pokemon name
     final trimmedName = name.trim().toLowerCase();
-    
+
     if (trimmedName.isEmpty) {
       return Left(ValidationFailure('Pokemon name cannot be empty'));
     }

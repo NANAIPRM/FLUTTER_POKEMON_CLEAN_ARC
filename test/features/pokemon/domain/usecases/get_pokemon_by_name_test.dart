@@ -24,14 +24,16 @@ void main() {
   const tPokemon = Pokemon(
     id: 1,
     name: 'bulbasaur',
-    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+    imageUrl:
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
     types: ['grass', 'poison'],
     height: 7,
     weight: 69,
   );
 
   group('GetPokemonByName Use Case', () {
-    test('should return Pokemon when the repository call is successful', () async {
+    test('should return Pokemon when the repository call is successful',
+        () async {
       // arrange
       when(mockPokemonRepository.getPokemonByName(any))
           .thenAnswer((_) async => Right(tPokemon));
@@ -77,7 +79,8 @@ void main() {
       verifyNever(mockPokemonRepository.getPokemonByName(any));
     });
 
-    test('should return ValidationFailure when name is only whitespace', () async {
+    test('should return ValidationFailure when name is only whitespace',
+        () async {
       // arrange
       const tWhitespaceName = '   ';
 
@@ -111,7 +114,9 @@ void main() {
       verifyNever(mockPokemonRepository.getPokemonByName(any));
     });
 
-    test('should return ValidationFailure when name contains invalid characters', () async {
+    test(
+        'should return ValidationFailure when name contains invalid characters',
+        () async {
       // arrange
       const tInvalidName = 'bulba@saur';
 
@@ -128,7 +133,8 @@ void main() {
       verifyNever(mockPokemonRepository.getPokemonByName(any));
     });
 
-    test('should convert name to lowercase before calling repository', () async {
+    test('should convert name to lowercase before calling repository',
+        () async {
       // arrange
       const tUpperCaseName = 'BULBASAUR';
       when(mockPokemonRepository.getPokemonByName(any))

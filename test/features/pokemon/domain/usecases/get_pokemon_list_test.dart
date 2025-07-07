@@ -23,7 +23,8 @@ void main() {
   const tPokemon = Pokemon(
     id: 1,
     name: 'bulbasaur',
-    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+    imageUrl:
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
     types: ['grass', 'poison'],
     height: 7,
     weight: 69,
@@ -32,7 +33,8 @@ void main() {
   final tPokemonList = [tPokemon];
 
   group('GetPokemonList Use Case', () {
-    test('should return List<Pokemon> when the repository call is successful', () async {
+    test('should return List<Pokemon> when the repository call is successful',
+        () async {
       // arrange
       const tParams = GetPokemonListParams(limit: 20, offset: 0);
       when(mockPokemonRepository.getPokemonList(
@@ -87,7 +89,8 @@ void main() {
       ));
     });
 
-    test('should return ValidationFailure when limit is greater than 100', () async {
+    test('should return ValidationFailure when limit is greater than 100',
+        () async {
       // arrange
       const tParams = GetPokemonListParams(limit: 101, offset: 0);
 

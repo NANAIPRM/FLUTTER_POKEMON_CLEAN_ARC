@@ -4,7 +4,7 @@ import '../entities/pokemon.dart';
 import '../repositories/pokemon_repository.dart';
 
 /// Use case for retrieving a single Pokemon by its ID.
-/// 
+///
 /// This use case encapsulates the business logic for getting a Pokemon
 /// and handles validation of the input parameters.
 class GetPokemon {
