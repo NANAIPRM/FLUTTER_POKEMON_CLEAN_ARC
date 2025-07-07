@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/network_info.dart';
+import '../../../../core/utils/repository_error_handler.dart';
+import '../../../../core/utils/cache_helper.dart';
 import '../../domain/entities/pokemon.dart';
 import '../../domain/repositories/pokemon_repository.dart';
 import '../datasources/pokemon_local_data_source.dart';
 import '../datasources/pokemon_remote_data_source.dart';
-import '../models/pokemon_model.dart';
 
 /// Implementation of [PokemonRepository].
 ///
@@ -32,14 +33,14 @@ class PokemonRepositoryImpl implements PokemonRepository {
         final remotePokemon = await _remoteDataSource.getPokemon(id);
 
         // Cache the result for offline access (ignore cache failures)
-        _cachePokemonSafely(remotePokemon);
+        CacheHelper.safeCacheAsync(() => _localDataSource.cachePokemon(remotePokemon));
 
         return Right(remotePokemon.toEntity());
       } catch (e) {
-        final failure = _mapToFailure(e);
+        final failure = RepositoryErrorHandler.mapToFailure(e);
 
         // Try cache for recoverable errors, return immediately for others
-        if (_shouldRetryFromCache(failure)) {
+        if (RepositoryErrorHandler.shouldRetryFromCache(failure)) {
           return _tryGetFromCache(id, failure);
         } else {
           return Left(failure);
@@ -63,14 +64,14 @@ class PokemonRepositoryImpl implements PokemonRepository {
         );
 
         // Cache the result for offline access (ignore cache failures)
-        _cachePokemonListSafely(remotePokemonList);
+        CacheHelper.safeCacheAsync(() => _localDataSource.cachePokemonList(remotePokemonList));
 
         return Right(remotePokemonList.map((model) => model.toEntity()).toList());
       } catch (e) {
-        final failure = _mapToFailure(e);
-        
+        final failure = RepositoryErrorHandler.mapToFailure(e);
+
         // Try cache for recoverable errors, return immediately for others
-        if (_shouldRetryFromCache(failure)) {
+        if (RepositoryErrorHandler.shouldRetryFromCache(failure)) {
           return _tryGetListFromCache(failure);
         } else {
           return Left(failure);
@@ -88,14 +89,14 @@ class PokemonRepositoryImpl implements PokemonRepository {
         final remotePokemon = await _remoteDataSource.getPokemonByName(name);
 
         // Cache the result for offline access (ignore cache failures)
-        _cachePokemonSafely(remotePokemon);
+        CacheHelper.safeCacheAsync(() => _localDataSource.cachePokemon(remotePokemon));
 
         return Right(remotePokemon.toEntity());
       } catch (e) {
-        final failure = _mapToFailure(e);
-        
+        final failure = RepositoryErrorHandler.mapToFailure(e);
+
         // Try cache for recoverable errors, return immediately for others
-        if (_shouldRetryFromCache(failure)) {
+        if (RepositoryErrorHandler.shouldRetryFromCache(failure)) {
           return _tryGetByNameFromCache(name, failure);
         } else {
           return Left(failure);
@@ -106,34 +107,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
     }
   }
 
-  // 🔄 Helper methods for cache fallback
-
-  /// Determines if we should try cache when remote fails
-  bool _shouldRetryFromCache(Failure failure) {
-    return failure is ServerFailure ||
-        failure is TimeoutFailure ||
-        failure is ConnectionFailure;
-  }
-
-  /// Maps any error to appropriate Failure
-  Failure _mapToFailure(dynamic error) {
-    if (error is Failure) return error;
-    return ServerFailure('Unexpected error: ${error.toString()}');
-  }
-
-  /// Safely cache Pokemon without throwing on cache errors
-  void _cachePokemonSafely(PokemonModel pokemon) {
-    _localDataSource.cachePokemon(pokemon).catchError((_) {
-      // Ignore cache errors when we have data
-    });
-  }
-
-  /// Safely cache Pokemon list without throwing on cache errors
-  void _cachePokemonListSafely(List<PokemonModel> pokemonList) {
-    _localDataSource.cachePokemonList(pokemonList).catchError((_) {
-      // Ignore cache errors when we have data
-    });
-  }
+  // 🔄 Cache fallback methods
 
   /// Get Pokemon from cache only (offline mode)
   Future<Either<Failure, Pokemon>> _getFromCacheOnly(int id) async {
@@ -141,9 +115,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
       final localPokemon = await _localDataSource.getLastPokemon(id);
       return Right(localPokemon.toEntity());
     } on CacheFailure catch (failure) {
-      return Left(NetworkFailure(
-        'No internet connection and no cached data available: ${failure.message}',
-      ));
+      return Left(RepositoryErrorHandler.createOfflineFailure(failure.message));
     }
   }
 
@@ -153,9 +125,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
       final localPokemonList = await _localDataSource.getLastPokemonList();
       return Right(localPokemonList.map((model) => model.toEntity()).toList());
     } on CacheFailure catch (failure) {
-      return Left(NetworkFailure(
-        'No internet connection and no cached data available: ${failure.message}',
-      ));
+      return Left(RepositoryErrorHandler.createOfflineFailure(failure.message));
     }
   }
 
@@ -165,9 +135,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
       final localPokemon = await _localDataSource.getLastPokemonByName(name);
       return Right(localPokemon.toEntity());
     } on CacheFailure catch (failure) {
-      return Left(NetworkFailure(
-        'No internet connection and no cached data available: ${failure.message}',
-      ));
+      return Left(RepositoryErrorHandler.createOfflineFailure(failure.message));
     }
   }
 
