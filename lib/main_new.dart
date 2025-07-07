@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'injection_container.dart' as di;
-import 'core/router/app_router.dart';
+import 'features/pokemon/presentation/bloc/bloc.dart';
+import 'features/pokemon/presentation/pages/pokemon_list_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize dependency injection
   await di.init();
-  
+
   runApp(const PokemonApp());
 }
 
@@ -17,8 +19,8 @@ class PokemonApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Pokédx - Clean Architecture',
+    return MaterialApp(
+      title: 'Pokédex - Clean Architecture',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.red,
@@ -28,7 +30,10 @@ class PokemonApp extends StatelessWidget {
           foregroundColor: Colors.white,
         ),
       ),
-      routerConfig: AppRouter.router,
+      home: BlocProvider(
+        create: (_) => di.sl<PokemonBloc>(),
+        child: const PokemonListPage(),
+      ),
     );
   }
 }

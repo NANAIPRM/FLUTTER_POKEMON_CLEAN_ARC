@@ -34,6 +34,9 @@ dependencies:
   # UI & Icons
   cupertino_icons: ^1.0.8
 
+  # Navigation
+  go_router: ^14.6.1
+
   # State Management
   flutter_bloc: ^8.1.6  # This includes bloc package automatically
 

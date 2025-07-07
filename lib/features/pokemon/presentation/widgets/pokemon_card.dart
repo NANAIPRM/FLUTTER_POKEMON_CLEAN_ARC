@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../domain/entities/pokemon.dart';
-import '../pages/pokemon_detail_page.dart';
 
 class PokemonCard extends StatelessWidget {
   final Pokemon pokemon;
@@ -189,10 +189,9 @@ class PokemonCard extends StatelessWidget {
   }
 
   void _navigateToDetail(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => PokemonDetailPage(pokemon: pokemon),
-      ),
+    context.go(
+      '/pokemon/${pokemon.id}',
+      extra: pokemon,
     );
   }
 

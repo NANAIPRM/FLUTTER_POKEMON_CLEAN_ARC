@@ -94,8 +94,8 @@ void main() {
       blocTest<PokemonBloc, PokemonState>(
         'should emit [PokemonLoading, PokemonError] when getPokemon fails',
         build: () {
-          when(mockGetPokemon.call(any))
-              .thenAnswer((_) async => const Left(ServerFailure('Server error')));
+          when(mockGetPokemon.call(any)).thenAnswer(
+              (_) async => const Left(ServerFailure('Server error')));
           return pokemonBloc;
         },
         act: (bloc) => bloc.add(const GetPokemonEvent(1)),
@@ -103,7 +103,8 @@ void main() {
           const PokemonLoading(),
           predicate<PokemonError>((state) =>
               state.failure is ServerFailure &&
-              state.message == 'Server error occurred. Please try again later.'),
+              state.message ==
+                  'Server error occurred. Please try again later.'),
         ],
         verify: (_) {
           verify(mockGetPokemon.call(1));
@@ -132,8 +133,8 @@ void main() {
       blocTest<PokemonBloc, PokemonState>(
         'should emit [PokemonLoading, PokemonError] when getPokemonByName fails',
         build: () {
-          when(mockGetPokemonByName.call(any))
-              .thenAnswer((_) async => const Left(NetworkFailure('Network error')));
+          when(mockGetPokemonByName.call(any)).thenAnswer(
+              (_) async => const Left(NetworkFailure('Network error')));
           return pokemonBloc;
         },
         act: (bloc) => bloc.add(const GetPokemonByNameEvent('bulbasaur')),
@@ -141,7 +142,8 @@ void main() {
           const PokemonLoading(),
           predicate<PokemonError>((state) =>
               state.failure is NetworkFailure &&
-              state.message == 'No internet connection. Showing cached data if available.'),
+              state.message ==
+                  'No internet connection. Showing cached data if available.'),
         ],
         verify: (_) {
           verify(mockGetPokemonByName.call('bulbasaur'));
@@ -183,7 +185,8 @@ void main() {
           const PokemonLoading(),
           predicate<PokemonError>((state) =>
               state.failure is CacheFailure &&
-              state.message == 'Cache error occurred. Please check your storage.'),
+              state.message ==
+                  'Cache error occurred. Please check your storage.'),
         ],
         verify: (_) {
           verify(mockGetPokemonList.call(any));

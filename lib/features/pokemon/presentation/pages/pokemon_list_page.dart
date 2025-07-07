@@ -39,9 +39,9 @@ class _PokemonListPageState extends State<PokemonListPage> {
       final state = context.read<PokemonBloc>().state;
       if (state is PokemonListLoaded && !state.hasReachedMax) {
         context.read<PokemonBloc>().add(GetPokemonListEvent(
-          limit: 20,
-          offset: state.currentOffset,
-        ));
+              limit: 20,
+              offset: state.currentOffset,
+            ));
       }
     }
   }
@@ -121,8 +121,8 @@ class _PokemonListPageState extends State<PokemonListPage> {
       return ErrorDisplay(
         message: state.message,
         onRetry: () => context.read<PokemonBloc>().add(
-          const GetPokemonListEvent(),
-        ),
+              const GetPokemonListEvent(),
+            ),
       );
     }
 

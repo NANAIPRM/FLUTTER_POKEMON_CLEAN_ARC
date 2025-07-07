@@ -33,7 +33,8 @@ class PokemonRepositoryImpl implements PokemonRepository {
         final remotePokemon = await _remoteDataSource.getPokemon(id);
 
         // Cache the result for offline access (ignore cache failures)
-        CacheHelper.safeCacheAsync(() => _localDataSource.cachePokemon(remotePokemon));
+        CacheHelper.safeCacheAsync(
+            () => _localDataSource.cachePokemon(remotePokemon));
 
         return Right(remotePokemon.toEntity());
       } catch (e) {
@@ -64,9 +65,11 @@ class PokemonRepositoryImpl implements PokemonRepository {
         );
 
         // Cache the result for offline access (ignore cache failures)
-        CacheHelper.safeCacheAsync(() => _localDataSource.cachePokemonList(remotePokemonList));
+        CacheHelper.safeCacheAsync(
+            () => _localDataSource.cachePokemonList(remotePokemonList));
 
-        return Right(remotePokemonList.map((model) => model.toEntity()).toList());
+        return Right(
+            remotePokemonList.map((model) => model.toEntity()).toList());
       } catch (e) {
         final failure = RepositoryErrorHandler.mapToFailure(e);
 
@@ -89,7 +92,8 @@ class PokemonRepositoryImpl implements PokemonRepository {
         final remotePokemon = await _remoteDataSource.getPokemonByName(name);
 
         // Cache the result for offline access (ignore cache failures)
-        CacheHelper.safeCacheAsync(() => _localDataSource.cachePokemon(remotePokemon));
+        CacheHelper.safeCacheAsync(
+            () => _localDataSource.cachePokemon(remotePokemon));
 
         return Right(remotePokemon.toEntity());
       } catch (e) {
