@@ -60,12 +60,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # Testing
+  mockito: ^5.4.4
+  bloc_test: ^9.1.7
+
   # Code Generation
   json_serializable: ^6.8.0
   build_runner: ^2.4.12
-
-  # Testing
-  mockito: ^5.4.4
 
   # Linting
   flutter_lints: ^4.0.0

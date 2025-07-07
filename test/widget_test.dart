@@ -1,30 +1,34 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// This is a basic Flutter widget test for the Pokemon app.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mockito/mockito.dart';
 
-import 'package:flutter_pokemon_clean_arc/main.dart';
+import 'package:flutter_pokemon_clean_arc/features/pokemon/presentation/bloc/bloc.dart';
+import 'package:flutter_pokemon_clean_arc/features/pokemon/presentation/pages/pokemon_list_page.dart';
+
+class MockPokemonBloc extends Mock implements PokemonBloc {}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Pokemon app should show Pokédex title', (WidgetTester tester) async {
+    final mockBloc = MockPokemonBloc();
+    
+    // Mock the initial state
+    when(mockBloc.state).thenReturn(const PokemonInitial());
+    when(mockBloc.stream).thenAnswer((_) => Stream.fromIterable([const PokemonInitial()]));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Build our app and trigger a frame
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BlocProvider<PokemonBloc>.value(
+          value: mockBloc,
+          child: const PokemonListPage(),
+        ),
+      ),
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that the app bar shows Pokédex title
+    expect(find.text('Pokédex'), findsOneWidget);
   });
 }
