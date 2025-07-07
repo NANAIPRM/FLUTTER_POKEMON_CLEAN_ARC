@@ -269,12 +269,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [BLoC Library](https://bloclibrary.dev/) - State management solution
 - [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) - Architecture principles
 
-## 📞 Contact
-
-- **Developer**: Your Name
-- **Email**: your.email@example.com
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-
 ---
 
 <div align="center">
