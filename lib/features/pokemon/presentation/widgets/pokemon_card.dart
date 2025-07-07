@@ -189,7 +189,7 @@ class PokemonCard extends StatelessWidget {
   }
 
   void _navigateToDetail(BuildContext context) {
-    context.go(
+    context.push(
       '/pokemon/${pokemon.id}',
       extra: pokemon,
     );
