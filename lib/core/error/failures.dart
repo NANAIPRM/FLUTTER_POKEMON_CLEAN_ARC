@@ -44,3 +44,8 @@ class NotFoundFailure extends Failure {
   const NotFoundFailure([String? message])
       : super(message ?? 'Resource not found');
 }
+
+class ValidationFailure extends Failure {
+  const ValidationFailure([String? message])
+      : super(message ?? 'Validation error');
+}
