@@ -21,7 +21,8 @@ class GetPokemon {
   Future<Either<Failure, Pokemon>> call(int id) async {
     // Validate Pokemon ID range
     if (id < 1 || id > 1010) {
-      return Left(ValidationFailure('Pokemon ID must be between 1 and 1010'));
+      return const Left(
+          ValidationFailure('Pokemon ID must be between 1 and 1010'));
     }
 
     return await repository.getPokemon(id);

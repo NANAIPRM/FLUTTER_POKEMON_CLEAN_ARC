@@ -23,17 +23,17 @@ class GetPokemonByName {
     final trimmedName = name.trim().toLowerCase();
 
     if (trimmedName.isEmpty) {
-      return Left(ValidationFailure('Pokemon name cannot be empty'));
+      return const Left(ValidationFailure('Pokemon name cannot be empty'));
     }
 
     if (trimmedName.length > 50) {
-      return Left(ValidationFailure('Pokemon name is too long'));
+      return const Left(ValidationFailure('Pokemon name is too long'));
     }
 
     // Check for valid characters (letters, numbers, hyphens)
     final validNameRegex = RegExp(r'^[a-z0-9-]+$');
     if (!validNameRegex.hasMatch(trimmedName)) {
-      return Left(ValidationFailure(
+      return const Left(ValidationFailure(
         'Pokemon name can only contain letters, numbers, and hyphens',
       ));
     }

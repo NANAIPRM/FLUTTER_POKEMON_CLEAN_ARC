@@ -36,13 +36,13 @@ void main() {
         () async {
       // arrange
       when(mockPokemonRepository.getPokemon(any))
-          .thenAnswer((_) async => Right(tPokemon));
+          .thenAnswer((_) async => const Right(tPokemon));
 
       // act
       final result = await usecase(tId);
 
       // assert
-      expect(result, Right(tPokemon));
+      expect(result, const Right(tPokemon));
       verify(mockPokemonRepository.getPokemon(tId));
       verifyNoMoreInteractions(mockPokemonRepository);
     });
@@ -51,13 +51,13 @@ void main() {
       // arrange
       const tFailure = ServerFailure('Server error');
       when(mockPokemonRepository.getPokemon(any))
-          .thenAnswer((_) async => Left(tFailure));
+          .thenAnswer((_) async => const Left(tFailure));
 
       // act
       final result = await usecase(tId);
 
       // assert
-      expect(result, Left(tFailure));
+      expect(result, const Left(tFailure));
       verify(mockPokemonRepository.getPokemon(tId));
       verifyNoMoreInteractions(mockPokemonRepository);
     });
@@ -101,7 +101,7 @@ void main() {
     test('should call repository with correct Pokemon ID', () async {
       // arrange
       when(mockPokemonRepository.getPokemon(any))
-          .thenAnswer((_) async => Right(tPokemon));
+          .thenAnswer((_) async => const Right(tPokemon));
 
       // act
       await usecase(tId);

@@ -164,7 +164,7 @@ void main() {
           const PokemonLoading(),
           const PokemonListLoaded(
             pokemonList: tPokemonList,
-            hasReachedMax: false,
+            hasReachedMax: true, // 2 items < 20 limit = true
             currentOffset: 2,
           ),
         ],
@@ -252,7 +252,7 @@ void main() {
           const PokemonLoading(),
           const PokemonListLoaded(
             pokemonList: tPokemonList,
-            hasReachedMax: false,
+            hasReachedMax: true, // 2 items < 20 limit = true
             currentOffset: 2,
           ),
         ],
@@ -275,7 +275,7 @@ void main() {
           const PokemonLoading(),
           const PokemonListLoaded(
             pokemonList: tPokemonList,
-            hasReachedMax: false,
+            hasReachedMax: true, // 2 items < 20 limit = true
             currentOffset: 2,
           ),
         ],
@@ -300,7 +300,7 @@ void main() {
           const PokemonLoading(),
           const PokemonListLoaded(
             pokemonList: tPokemonList,
-            hasReachedMax: false,
+            hasReachedMax: true, // 2 items < 20 limit = true
             currentOffset: 2,
           ),
         ],
@@ -321,7 +321,7 @@ void main() {
           const PokemonLoading(),
           const PokemonListLoaded(
             pokemonList: tPokemonList,
-            hasReachedMax: false,
+            hasReachedMax: true, // 2 items < 20 limit = true
             currentOffset: 2,
           ),
         ],

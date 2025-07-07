@@ -166,21 +166,16 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   }
 
   String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return 'Server error occurred. Please try again later.';
-      case NetworkFailure:
-        return 'No internet connection. Showing cached data if available.';
-      case CacheFailure:
-        return 'Cache error occurred. Please check your storage.';
-      case ValidationFailure:
-        return failure.message; // Show specific validation message
-      case TimeoutFailure:
-        return 'Request timed out. Please check your connection.';
-      case ConnectionFailure:
-        return 'Connection failed. Please check your internet.';
-      default:
-        return 'Something went wrong. Please try again.';
-    }
+    return switch (failure) {
+      ServerFailure() => 'Server error occurred. Please try again later.',
+      NetworkFailure() =>
+        'No internet connection. Showing cached data if available.',
+      CacheFailure() => 'Cache error occurred. Please check your storage.',
+      ValidationFailure() =>
+        failure.message, // Show specific validation message
+      TimeoutFailure() => 'Request timed out. Please check your connection.',
+      ConnectionFailure() => 'Connection failed. Please check your internet.',
+      _ => 'Something went wrong. Please try again.',
+    };
   }
 }

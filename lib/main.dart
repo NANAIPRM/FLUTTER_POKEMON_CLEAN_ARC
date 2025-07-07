@@ -5,10 +5,10 @@ import 'core/router/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize dependency injection
   await di.init();
-  
+
   runApp(const PokemonApp());
 }
 

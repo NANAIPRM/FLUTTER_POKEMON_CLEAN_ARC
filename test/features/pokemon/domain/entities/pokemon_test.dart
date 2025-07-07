@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Pokemon Entity', () {
-    final tPokemon = Pokemon(
+    const tPokemon = Pokemon(
       id: 1,
       name: 'Pikachu',
       imageUrl: 'https://example.com/pikachu.png',
@@ -19,7 +19,7 @@ void main() {
         expect(tPokemon, isA<Pokemon>());
 
         // Test equality
-        final tPokemon2 = Pokemon(
+        const tPokemon2 = Pokemon(
           id: 1,
           name: 'Pikachu',
           imageUrl: 'https://example.com/pikachu.png',
@@ -49,7 +49,7 @@ void main() {
       'should support Pokemon with multiple types',
       () async {
         // arrange
-        final tMultiTypePokemon = Pokemon(
+        const tMultiTypePokemon = Pokemon(
           id: 6,
           name: 'Charizard',
           imageUrl: 'https://example.com/charizard.png',

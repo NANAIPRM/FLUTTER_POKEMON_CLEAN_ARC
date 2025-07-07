@@ -37,7 +37,8 @@ class DioClient {
         error: true,
         logPrint: (obj) {
           // You can customize logging here
-          print('🌐 DIO: $obj');
+          // Use debugPrint in production or remove for release builds
+          // print('🌐 DIO: $obj');
         },
       ),
     );
@@ -47,7 +48,8 @@ class DioClient {
       InterceptorsWrapper(
         onError: (error, handler) {
           // Handle specific errors here if needed
-          print('❌ DIO Error: ${error.message}');
+          // Use debugPrint in production or remove for release builds
+          // print('❌ DIO Error: ${error.message}');
           handler.next(error);
         },
       ),

@@ -58,13 +58,13 @@ void main() {
       when(mockPokemonRepository.getPokemonList(
         limit: anyNamed('limit'),
         offset: anyNamed('offset'),
-      )).thenAnswer((_) async => Left(tFailure));
+      )).thenAnswer((_) async => const Left(tFailure));
 
       // act
       final result = await usecase(tParams);
 
       // assert
-      expect(result, Left(tFailure));
+      expect(result, const Left(tFailure));
       verify(mockPokemonRepository.getPokemonList(limit: 20, offset: 0));
       verifyNoMoreInteractions(mockPokemonRepository);
     });

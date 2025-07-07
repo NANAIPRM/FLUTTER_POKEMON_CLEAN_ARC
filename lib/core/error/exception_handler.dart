@@ -15,7 +15,7 @@ class ExceptionHandler {
         return _handleStatusCode(error.response?.statusCode, error.message);
 
       case DioExceptionType.cancel:
-        return ConnectionFailure('Request was cancelled');
+        return const ConnectionFailure('Request was cancelled');
 
       case DioExceptionType.connectionError:
         return ConnectionFailure('Connection error: ${error.message}');

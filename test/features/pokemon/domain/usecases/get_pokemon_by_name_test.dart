@@ -36,13 +36,13 @@ void main() {
         () async {
       // arrange
       when(mockPokemonRepository.getPokemonByName(any))
-          .thenAnswer((_) async => Right(tPokemon));
+          .thenAnswer((_) async => const Right(tPokemon));
 
       // act
       final result = await usecase(tName);
 
       // assert
-      expect(result, Right(tPokemon));
+      expect(result, const Right(tPokemon));
       verify(mockPokemonRepository.getPokemonByName(tName));
       verifyNoMoreInteractions(mockPokemonRepository);
     });
@@ -51,13 +51,13 @@ void main() {
       // arrange
       const tFailure = ServerFailure('Server error');
       when(mockPokemonRepository.getPokemonByName(any))
-          .thenAnswer((_) async => Left(tFailure));
+          .thenAnswer((_) async => const Left(tFailure));
 
       // act
       final result = await usecase(tName);
 
       // assert
-      expect(result, Left(tFailure));
+      expect(result, const Left(tFailure));
       verify(mockPokemonRepository.getPokemonByName(tName));
       verifyNoMoreInteractions(mockPokemonRepository);
     });
@@ -138,7 +138,7 @@ void main() {
       // arrange
       const tUpperCaseName = 'BULBASAUR';
       when(mockPokemonRepository.getPokemonByName(any))
-          .thenAnswer((_) async => Right(tPokemon));
+          .thenAnswer((_) async => const Right(tPokemon));
 
       // act
       await usecase(tUpperCaseName);
@@ -151,7 +151,7 @@ void main() {
       // arrange
       const tNameWithSpaces = '  bulbasaur  ';
       when(mockPokemonRepository.getPokemonByName(any))
-          .thenAnswer((_) async => Right(tPokemon));
+          .thenAnswer((_) async => const Right(tPokemon));
 
       // act
       await usecase(tNameWithSpaces);
@@ -164,13 +164,13 @@ void main() {
       // arrange
       const tValidName = 'ho-oh2';
       when(mockPokemonRepository.getPokemonByName(any))
-          .thenAnswer((_) async => Right(tPokemon));
+          .thenAnswer((_) async => const Right(tPokemon));
 
       // act
       final result = await usecase(tValidName);
 
       // assert
-      expect(result, Right(tPokemon));
+      expect(result, const Right(tPokemon));
       verify(mockPokemonRepository.getPokemonByName(tValidName));
     });
   });

@@ -41,7 +41,7 @@ class GetPokemonList {
       GetPokemonListParams params) async {
     // Validate pagination parameters
     if (!params.isValid) {
-      return Left(ValidationFailure(
+      return const Left(ValidationFailure(
         'Invalid pagination parameters. Limit must be 1-100, offset must be >= 0',
       ));
     }

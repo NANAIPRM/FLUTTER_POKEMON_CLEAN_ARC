@@ -34,13 +34,13 @@ void main() {
         () async {
       // arrange
       when(mockPokemonRepository.getPokemon(any))
-          .thenAnswer((_) async => Right(tPokemon));
+          .thenAnswer((_) async => const Right(tPokemon));
 
       // act
       final result = await mockPokemonRepository.getPokemon(tId);
 
       // assert
-      expect(result, equals(Right(tPokemon)));
+      expect(result, equals(const Right(tPokemon)));
       verify(mockPokemonRepository.getPokemon(tId));
       verifyNoMoreInteractions(mockPokemonRepository);
     });
@@ -49,13 +49,13 @@ void main() {
       // arrange
       const tFailure = ServerFailure('Server error');
       when(mockPokemonRepository.getPokemon(any))
-          .thenAnswer((_) async => Left(tFailure));
+          .thenAnswer((_) async => const Left(tFailure));
 
       // act
       final result = await mockPokemonRepository.getPokemon(tId);
 
       // assert
-      expect(result, equals(Left(tFailure)));
+      expect(result, equals(const Left(tFailure)));
       verify(mockPokemonRepository.getPokemon(tId));
       verifyNoMoreInteractions(mockPokemonRepository);
     });
@@ -82,13 +82,13 @@ void main() {
         () async {
       // arrange
       when(mockPokemonRepository.getPokemonByName(any))
-          .thenAnswer((_) async => Right(tPokemon));
+          .thenAnswer((_) async => const Right(tPokemon));
 
       // act
       final result = await mockPokemonRepository.getPokemonByName(tName);
 
       // assert
-      expect(result, equals(Right(tPokemon)));
+      expect(result, equals(const Right(tPokemon)));
       verify(mockPokemonRepository.getPokemonByName(tName));
       verifyNoMoreInteractions(mockPokemonRepository);
     });

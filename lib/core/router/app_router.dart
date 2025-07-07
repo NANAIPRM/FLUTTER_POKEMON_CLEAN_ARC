@@ -42,7 +42,8 @@ class AppRouter {
           } else if (pokemonId != null) {
             // If only ID is passed, create a loading page and fetch Pokemon
             return BlocProvider(
-              create: (_) => di.sl<PokemonBloc>()..add(GetPokemonEvent(pokemonId)),
+              create: (_) =>
+                  di.sl<PokemonBloc>()..add(GetPokemonEvent(pokemonId)),
               child: PokemonDetailPageWithLoader(pokemonId: pokemonId),
             );
           } else {
